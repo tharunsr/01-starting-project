@@ -30,7 +30,23 @@ function Header() {
   );
 }
 
+function TableContent({ children, onSelect }) {
+  // function handleClick() {
+  //   return console.log("tharun");
+  // }
+
+  return (
+    <li>
+      <button onClick={onSelect}>{children}</button>
+    </li>
+  );
+}
+
 function App() {
+  function handleClick(selectedbutton) {
+    return console.log(selectedbutton);
+  }
+
   return (
     <div>
       <Header />
@@ -47,6 +63,21 @@ function App() {
             <ComponentProps {...CORE_CONCEPTS[2]} />
             <ComponentProps {...CORE_CONCEPTS[3]} />
           </ul>
+        </section>
+        <section id="examples">
+          <h2>Examples</h2>
+          <menu>
+            <TableContent onSelect={() => handleClick("Component")}>
+              Component
+            </TableContent>
+            <TableContent onSelect={() => handleClick("Jsx")}>JSX</TableContent>
+            <TableContent onSelect={() => handleClick("props")}>
+              Props
+            </TableContent>
+            <TableContent onSelect={() => handleClick("state")}>
+              State
+            </TableContent>
+          </menu>
         </section>
       </main>
     </div>

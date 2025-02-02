@@ -1,5 +1,6 @@
+import { useState } from "react";
 import reactImg from "./assets/react-core-concepts.png";
-import { CORE_CONCEPTS } from "./data";
+import { CORE_CONCEPTS, EXAMPLES } from "./data";
 
 const reactDescriptions = ["Fundamental", "Crucial", "Core"];
 
@@ -43,8 +44,16 @@ function TableContent({ children, onSelect }) {
 }
 
 function App() {
+  // let console_output = "Love da";
+
+  const [ans, setAns] = useState("defa");
+
   function handleClick(selectedbutton) {
-    return console.log(selectedbutton);
+    // console_output = selectedbutton;
+
+    setAns(selectedbutton);
+
+    // return console.log(selectedbutton);
   }
 
   return (
@@ -67,10 +76,10 @@ function App() {
         <section id="examples">
           <h2>Examples</h2>
           <menu>
-            <TableContent onSelect={() => handleClick("Component")}>
+            <TableContent onSelect={() => handleClick("components")}>
               Component
             </TableContent>
-            <TableContent onSelect={() => handleClick("Jsx")}>JSX</TableContent>
+            <TableContent onSelect={() => handleClick("jsx")}>JSX</TableContent>
             <TableContent onSelect={() => handleClick("props")}>
               Props
             </TableContent>
@@ -78,6 +87,15 @@ function App() {
               State
             </TableContent>
           </menu>
+          {/* {console_output} */}
+          {/* {ans} */}
+          <div id="tab-content">
+            <h3>{EXAMPLES[ans].title}</h3>
+            <p>{EXAMPLES[ans].description}</p>
+            <pre>
+              <code>{EXAMPLES[ans].code}</code>
+            </pre>
+          </div>
         </section>
       </main>
     </div>

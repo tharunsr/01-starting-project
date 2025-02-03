@@ -31,14 +31,14 @@ function Header() {
   );
 }
 
-function TableContent({ children, onSelect }) {
+function TableContent({ children, onSelect , isSelected}) {
   // function handleClick() {
   //   return console.log("tharun");
   // }
 
   return (
     <li>
-      <button onClick={onSelect}>{children}</button>
+      <button className = {isSelected ? "active" : null} onClick={onSelect}>{children}</button>
     </li>
   );
 }
@@ -46,7 +46,7 @@ function TableContent({ children, onSelect }) {
 function App() {
   // let console_output = "Love da";
 
-  const [ans, setAns] = useState("defa");
+  const [ans, setAns] = useState();
 
   function handleClick(selectedbutton) {
     // console_output = selectedbutton;
@@ -56,6 +56,20 @@ function App() {
     // return console.log(selectedbutton);
   }
 
+  let tableContent = 'Click any button';
+
+  if(ans){
+    tableContent = (
+    <div id="tab-content">
+            <h3>{EXAMPLES[ans].title}</h3>
+            <p>{EXAMPLES[ans].description}</p>
+            <pre>
+              <code>{EXAMPLES[ans].code}</code>
+            </pre>
+          </div>
+    );
+  }
+
   return (
     <div>
       <Header />
@@ -63,39 +77,37 @@ function App() {
         <h2>Time to get started!</h2>
         <section id="core-concepts">
           <ul>
-            <ComponentProps
+
+            {CORE_CONCEPTS.map((item) => 
+              <ComponentProps key={item.title} {...item} />)}
+
+            {/* <ComponentProps
               image={CORE_CONCEPTS[0].image}
               title={CORE_CONCEPTS[0].title}
               description={CORE_CONCEPTS[0].description}
             />
             <ComponentProps {...CORE_CONCEPTS[1]} />
             <ComponentProps {...CORE_CONCEPTS[2]} />
-            <ComponentProps {...CORE_CONCEPTS[3]} />
+            <ComponentProps {...CORE_CONCEPTS[3]} /> */}
           </ul>
         </section>
         <section id="examples">
           <h2>Examples</h2>
           <menu>
-            <TableContent onSelect={() => handleClick("components")}>
+            <TableContent isSelected = { ans === 'components'} onSelect={() => handleClick("components")}>
               Component
             </TableContent>
-            <TableContent onSelect={() => handleClick("jsx")}>JSX</TableContent>
-            <TableContent onSelect={() => handleClick("props")}>
+            <TableContent isSelected = { ans === 'jsx'} onSelect={() => handleClick("jsx")}>JSX</TableContent>
+            <TableContent isSelected = { ans === 'props'} onSelect={() => handleClick("props")}>
               Props
             </TableContent>
-            <TableContent onSelect={() => handleClick("state")}>
+            <TableContent isSelected = { ans === 'state'} onSelect={() => handleClick("state")}>
               State
             </TableContent>
           </menu>
           {/* {console_output} */}
           {/* {ans} */}
-          <div id="tab-content">
-            <h3>{EXAMPLES[ans].title}</h3>
-            <p>{EXAMPLES[ans].description}</p>
-            <pre>
-              <code>{EXAMPLES[ans].code}</code>
-            </pre>
-          </div>
+          {tableContent}
         </section>
       </main>
     </div>

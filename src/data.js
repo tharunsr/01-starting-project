@@ -31,9 +31,7 @@ export const CORE_CONCEPTS = [
 ];
 
 export const EXAMPLES = {
-  defa:{
-  title: 'Click any button'
-  },
+
   components: {
     title: 'Components',
     description:
